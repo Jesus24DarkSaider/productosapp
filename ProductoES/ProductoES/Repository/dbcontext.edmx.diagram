@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c8d766edbe474bc99a737cf8b18ffcb5" Name="Diagram1">
+        <EntityTypeShape EntityType="appproductsModel.tb_categoria" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="appproductsModel.tb_marca" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="appproductsModel.tb_medida" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="appproductsModel.tb_producto" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="appproductsModel.tb_proveedor" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="appproductsModel.FK__tb_produc__prove__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="appproductsModel.FK__tb_produc__marca__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="appproductsModel.FK__tb_produc__medid__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="appproductsModel.FK__tb_produc__prove__300424B4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
