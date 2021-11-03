@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbproductomodel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tb_categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_categoria" Type="varchar" MaxLength="100" />
+          <Property Name="estado" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="tb_marca">
+          <Key>
+            <PropertyRef Name="id_marca" />
+          </Key>
+          <Property Name="id_marca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_marca" Type="varchar" MaxLength="100" />
+          <Property Name="estado" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="tb_medida">
+          <Key>
+            <PropertyRef Name="id_medida" />
+          </Key>
+          <Property Name="id_medida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_medida" Type="varchar" MaxLength="100" />
+          <Property Name="estado" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="tb_producto">
+          <Key>
+            <PropertyRef Name="id_producto" />
+          </Key>
+          <Property Name="id_producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_producto" Type="varchar" MaxLength="200" />
+          <Property Name="descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="precio_unitario" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="categoria_id" Type="int" />
+          <Property Name="marca_id" Type="int" />
+          <Property Name="medida_id" Type="int" />
+          <Property Name="proveedor_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_proveedor">
+          <Key>
+            <PropertyRef Name="id_proveedor" />
+          </Key>
+          <Property Name="id_proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_proveedor" Type="varchar" MaxLength="100" />
+          <Property Name="estado" Type="char" MaxLength="2" />
+        </EntityType>
+        <Association Name="FK__tb_produc__marca__2E1BDC42">
+          <End Role="tb_marca" Type="Self.tb_marca" Multiplicity="0..1" />
+          <End Role="tb_producto" Type="Self.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_marca">
+              <PropertyRef Name="id_marca" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="marca_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_produc__medid__2F10007B">
+          <End Role="tb_medida" Type="Self.tb_medida" Multiplicity="0..1" />
+          <End Role="tb_producto" Type="Self.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_medida">
+              <PropertyRef Name="id_medida" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="medida_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_produc__prove__2D27B809">
+          <End Role="tb_categoria" Type="Self.tb_categoria" Multiplicity="0..1" />
+          <End Role="tb_producto" Type="Self.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="categoria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_produc__prove__300424B4">
+          <End Role="tb_proveedor" Type="Self.tb_proveedor" Multiplicity="0..1" />
+          <End Role="tb_producto" Type="Self.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="proveedor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbproductomodelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_categoria" EntityType="Self.tb_categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_marca" EntityType="Self.tb_marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_medida" EntityType="Self.tb_medida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_producto" EntityType="Self.tb_producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_proveedor" EntityType="Self.tb_proveedor" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tb_produc__marca__2E1BDC42" Association="Self.FK__tb_produc__marca__2E1BDC42">
+            <End Role="tb_marca" EntitySet="tb_marca" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_produc__medid__2F10007B" Association="Self.FK__tb_produc__medid__2F10007B">
+            <End Role="tb_medida" EntitySet="tb_medida" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_produc__prove__2D27B809" Association="Self.FK__tb_produc__prove__2D27B809">
+            <End Role="tb_categoria" EntitySet="tb_categoria" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_produc__prove__300424B4" Association="Self.FK__tb_produc__prove__300424B4">
+            <End Role="tb_proveedor" EntitySet="tb_proveedor" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbproductomodel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tb_categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tb_producto" Relationship="Self.FK__tb_produc__prove__2D27B809" FromRole="tb_categoria" ToRole="tb_producto" />
+        </EntityType>
+        <EntityType Name="tb_marca">
+          <Key>
+            <PropertyRef Name="id_marca" />
+          </Key>
+          <Property Name="id_marca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_marca" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tb_producto" Relationship="Self.FK__tb_produc__marca__2E1BDC42" FromRole="tb_marca" ToRole="tb_producto" />
+        </EntityType>
+        <EntityType Name="tb_medida">
+          <Key>
+            <PropertyRef Name="id_medida" />
+          </Key>
+          <Property Name="id_medida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_medida" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tb_producto" Relationship="Self.FK__tb_produc__medid__2F10007B" FromRole="tb_medida" ToRole="tb_producto" />
+        </EntityType>
+        <EntityType Name="tb_producto">
+          <Key>
+            <PropertyRef Name="id_producto" />
+          </Key>
+          <Property Name="id_producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_producto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio_unitario" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="categoria_id" Type="Int32" />
+          <Property Name="marca_id" Type="Int32" />
+          <Property Name="medida_id" Type="Int32" />
+          <Property Name="proveedor_id" Type="Int32" />
+          <NavigationProperty Name="tb_categoria" Relationship="Self.FK__tb_produc__prove__2D27B809" FromRole="tb_producto" ToRole="tb_categoria" />
+          <NavigationProperty Name="tb_marca" Relationship="Self.FK__tb_produc__marca__2E1BDC42" FromRole="tb_producto" ToRole="tb_marca" />
+          <NavigationProperty Name="tb_medida" Relationship="Self.FK__tb_produc__medid__2F10007B" FromRole="tb_producto" ToRole="tb_medida" />
+          <NavigationProperty Name="tb_proveedor" Relationship="Self.FK__tb_produc__prove__300424B4" FromRole="tb_producto" ToRole="tb_proveedor" />
+        </EntityType>
+        <EntityType Name="tb_proveedor">
+          <Key>
+            <PropertyRef Name="id_proveedor" />
+          </Key>
+          <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_proveedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tb_producto" Relationship="Self.FK__tb_produc__prove__300424B4" FromRole="tb_proveedor" ToRole="tb_producto" />
+        </EntityType>
+        <Association Name="FK__tb_produc__prove__2D27B809">
+          <End Role="tb_categoria" Type="Self.tb_categoria" Multiplicity="0..1" />
+          <End Role="tb_producto" Type="Self.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="categoria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_produc__marca__2E1BDC42">
+          <End Role="tb_marca" Type="Self.tb_marca" Multiplicity="0..1" />
+          <End Role="tb_producto" Type="Self.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_marca">
+              <PropertyRef Name="id_marca" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="marca_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_produc__medid__2F10007B">
+          <End Role="tb_medida" Type="Self.tb_medida" Multiplicity="0..1" />
+          <End Role="tb_producto" Type="Self.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_medida">
+              <PropertyRef Name="id_medida" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="medida_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_produc__prove__300424B4">
+          <End Role="tb_proveedor" Type="Self.tb_proveedor" Multiplicity="0..1" />
+          <End Role="tb_producto" Type="Self.tb_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="tb_producto">
+              <PropertyRef Name="proveedor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbproductos" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tb_categoria" EntityType="Self.tb_categoria" />
+          <EntitySet Name="tb_marca" EntityType="Self.tb_marca" />
+          <EntitySet Name="tb_medida" EntityType="Self.tb_medida" />
+          <EntitySet Name="tb_producto" EntityType="Self.tb_producto" />
+          <EntitySet Name="tb_proveedor" EntityType="Self.tb_proveedor" />
+          <AssociationSet Name="FK__tb_produc__prove__2D27B809" Association="Self.FK__tb_produc__prove__2D27B809">
+            <End Role="tb_categoria" EntitySet="tb_categoria" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_produc__marca__2E1BDC42" Association="Self.FK__tb_produc__marca__2E1BDC42">
+            <End Role="tb_marca" EntitySet="tb_marca" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_produc__medid__2F10007B" Association="Self.FK__tb_produc__medid__2F10007B">
+            <End Role="tb_medida" EntitySet="tb_medida" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_produc__prove__300424B4" Association="Self.FK__tb_produc__prove__300424B4">
+            <End Role="tb_proveedor" EntitySet="tb_proveedor" />
+            <End Role="tb_producto" EntitySet="tb_producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbproductomodelStoreContainer" CdmEntityContainer="dbproductos">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="dbproductomodel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_categoria">
+            <EntityTypeMapping TypeName="dbproductomodel.tb_categoria">
+              <MappingFragment StoreEntitySet="tb_categoria">
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="nombre_categoria" ColumnName="nombre_categoria" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_marca">
+            <EntityTypeMapping TypeName="dbproductomodel.tb_marca">
+              <MappingFragment StoreEntitySet="tb_marca">
+                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+                <ScalarProperty Name="nombre_marca" ColumnName="nombre_marca" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_medida">
+            <EntityTypeMapping TypeName="dbproductomodel.tb_medida">
+              <MappingFragment StoreEntitySet="tb_medida">
+                <ScalarProperty Name="id_medida" ColumnName="id_medida" />
+                <ScalarProperty Name="nombre_medida" ColumnName="nombre_medida" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_producto">
+            <EntityTypeMapping TypeName="dbproductomodel.tb_producto">
+              <MappingFragment StoreEntitySet="tb_producto">
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+                <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
+                <ScalarProperty Name="marca_id" ColumnName="marca_id" />
+                <ScalarProperty Name="medida_id" ColumnName="medida_id" />
+                <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_proveedor">
+            <EntityTypeMapping TypeName="dbproductomodel.tb_proveedor">
+              <MappingFragment StoreEntitySet="tb_proveedor">
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+                <ScalarProperty Name="nombre_proveedor" ColumnName="nombre_proveedor" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
