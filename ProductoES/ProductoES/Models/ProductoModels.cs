@@ -8,15 +8,37 @@ namespace ProductoES.Models
     public class ProductoModels
     {
 
-        public int idProducto { get; set; }
-        public string nombreProducto { get; set; }
+        public int id_producto { get; set; }
+        public string nombre_producto { get; set; }
         public string descripcion { get; set; }
         public int cantidad { get; set; }
-        public decimal precioUnitario { get; set; }
-        public int categoriaId { get; set; }
-        public int marcaId { get; set; }
-        public int medidaId { get; set; }
-        public int proveedorId { get; set; }
+        public decimal precio_unitario { get; set; }
+        public int categoria_id { get; set; }
+        public int marca_id { get; set; }
+        public int medida_id { get; set; }
+        public int proveedor_id { get; set; }
 
     }
+
+    public class ProductoDTO
+    {
+
+        public int id_producto { get; set; }
+        public string nombre_producto { get; set; }
+        public string descripcion { get; set; }
+        public int cantidad { get; set; }
+        public decimal precio_unitario { get; set; }
+        public string nombre_categoria { get; set; }
+        public string nombre_marca { get; set; }
+        public string nombre_medida { get; set; }
+        public string nombre_proveedor { get; set; }
+
+    }
+
+    public class ProductoResponse
+    {
+        public List<ProductoDTO> listadoProducto { get; set; }
+        public RespuestaType respuesta { get; set; }
+    }
+
 }

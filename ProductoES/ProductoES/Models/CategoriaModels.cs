@@ -7,9 +7,14 @@ namespace ProductoES.Models
 {
     public class CategoriaModels
     {
-        private int id_categoria;
-        private string nombre_categoria;
-            
+        public int id_categoria  { get; set; }
+        public string nombre_categoria { get; set; }
+        public string estado { get; set; }
+    }
 
+    public class CategoriaResponse
+    {
+        public List<CategoriaModels> listadoCategorias { get; set; }
+        public RespuestaType respuesta { get; set; }
     }
 }

@@ -18,7 +18,7 @@
             <PropertyRef Name="id_marca" />
           </Key>
           <Property Name="id_marca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre_categoria" Type="varchar" MaxLength="100" />
+          <Property Name="nombre_marca" Type="varchar" MaxLength="100" />
           <Property Name="estado" Type="char" MaxLength="2" />
         </EntityType>
         <EntityType Name="tb_medida">
@@ -141,7 +141,7 @@
             <PropertyRef Name="id_marca" />
           </Key>
           <Property Name="id_marca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre_categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_marca" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="tb_producto" Relationship="Self.FK__tb_produc__marca__2E1BDC42" FromRole="tb_marca" ToRole="tb_producto" />
         </EntityType>
@@ -271,7 +271,7 @@
             <EntityTypeMapping TypeName="appproductsModel.tb_marca">
               <MappingFragment StoreEntitySet="tb_marca">
                 <ScalarProperty Name="id_marca" ColumnName="id_marca" />
-                <ScalarProperty Name="nombre_categoria" ColumnName="nombre_categoria" />
+                <ScalarProperty Name="nombre_marca" ColumnName="nombre_marca" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -21,7 +21,7 @@ namespace ProductoES.Repository
         }
     
         public int id_marca { get; set; }
-        public string nombre_categoria { get; set; }
+        public string nombre_marca { get; set; }
         public string estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

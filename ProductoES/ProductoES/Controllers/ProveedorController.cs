@@ -9,21 +9,21 @@ using ProductoES.Repository;
 
 namespace ProductoES.Controllers
 {
-    public class CategoriaController : ApiController
+    public class ProveedorController : ApiController
     {
-
-        [System.Web.Http.Route("es/categoria/v1")]
+        [System.Web.Http.Route("es/proveedor/v1")]
         [System.Web.Http.HttpGet]
-        public CategoriaResponse  consultarCategorias(){
-            CategoriaResponse response = new CategoriaResponse();
+        public ProveedorResponse consultarProveedor()
+        {
+            ProveedorResponse response = new ProveedorResponse();
             RespuestaType respuestaType = new RespuestaType();
             try
             {
                 using (dbproductos db = new dbproductos())
                 {
-                    var listadoCategoria = db.Database.SqlQuery<CategoriaModels>
-                        ("SPlistarCategorias").ToList();
-                    response.listadoCategorias = listadoCategoria;
+                    var proveedores = db.Database.SqlQuery<ProveedorModels>
+                        ("SPlistarProveedores").ToList();
+                    response.listaProveedores = proveedores;
                     respuestaType.Codigo = 200;
                     respuestaType.Descripcion = "Consulta Exitosa";
                 }
