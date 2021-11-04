@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ProductoES.Models
+namespace AppSinergia.Models
 {
     public class ProductoModels
     {
@@ -42,6 +42,10 @@ namespace ProductoES.Models
     }
 
 
-
-
+    public class ModuloProductos
+    {
+        public CategoriaResponse categoriaResponse { get; set; }
+        public ProductoResponse listadoProductos { get; set; }
+        public ProveedorResponse listadoProveedores { get; set; }
+    }
 }

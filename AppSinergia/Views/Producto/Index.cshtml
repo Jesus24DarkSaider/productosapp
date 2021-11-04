@@ -1,0 +1,204 @@
+﻿@model ModuloProductos;
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="text-center">
+    <!-- SELECT DE CATEGORIAS -->
+    @{
+        if (Model.categoriaResponse.listadoCategorias != null && Model.categoriaResponse.listadoCategorias.Count != 0)
+        {
+            <select class="form-control" aria-label="categorias">
+                <option selected>Seleccione una categoria</option>
+                @{
+                    foreach (CategoriaModels categoria in Model.categoriaResponse.listadoCategorias)
+                    {
+                        <option value="@categoria.id_categoria"> @categoria.nombre_categoria </option>
+                    }
+                }
+            </select>
+        }
+    }
+    <!-- DATA GRID LISTADO DE PRODUCTOS -->
+</div>
+
+<div>
+    <!-- SELECT DE PROVEEDORES -->
+    @{
+        if (Model.listadoProveedores != null && Model.listadoProveedores.listaProveedores.Count != 0)
+        {
+            <select class="form-control" aria-label="proveedores">
+                <option selected>Seleccione un proveedor</option>
+                @{
+                    foreach (ProveedorModels proveedor in Model.listadoProveedores.listaProveedores)
+                    {
+                        <option value="@proveedor."> @proveedor.nombre_proveedor </option>
+                    }
+                }
+            </select>
+        }
+    }
+</div>
+
+
+<div>
+
+    <!-- TABLA  -->
+    <table id="grid_productos">
+        <thead>
+            <tr>
+                <th>Codigo Producto</th>
+                <th>Nombre Producto</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Categoria</th>
+                <th>Marca</th>
+                <th>Medida</th>
+                <th>Proveedor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section scripts{
+
+    <script>
+        var tabla_persona;
+
+         $(document).ready( function () {
+             tabla_persona = $('#grid_productos').DataTable({
+                "ajax": {
+                    "url":  "/Producto/consultarProductos",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                 "columns": [
+                    { "data": "id_producto" },
+                    { "data": "nombre_producto" },
+                    { "data": "descripcion" },
+                    { "data": "cantidad" },
+                    { "data": "precio_unitario" },
+                    { "data": "nombre_categoria" },
+                    { "data": "nombre_marca" },
+                    { "data": "nombre_medida" },
+                    { "data": "nombre_proveedor" },
+                    {
+                        "data": "id_producto", "render": function (data) {
+                            return "<input class='btn btn-primary btn-sm' type='button' onclick='abrirModal(" + data + ")'> <i style='background-color: #FFFFFF';  class='fas fa - pen - square'></i> </input>" +
+                                "<input class='btn btn-danger btn-sm ml-2' type='button' onclick='Eliminar(" + data + ")'><i  class='fas fa - trash'></i> </input>"
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "150px"
+                    }
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        text: 'Agregar Nuevo',
+                        attr: { class: 'btn btn-success btn-sm' },
+                        action: function (e, dt, node, config) {
+                            abrirModal(0)
+                        }
+                    }
+                 ],
+            });
+        });
+
+
+        function abrirModal($idpersona) {
+
+            $("#txtIdPersona").val($idpersona);
+            if ($idpersona != 0) {
+
+                jQuery.ajax({
+                    url: "@Url.Action("Obtener","Persona")" + "?idpersona=" + $idpersona,
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        if (data != null) {
+
+                            $("#txtNombre").val(data.Nombre);
+                            $("#txtApellidos").val(data.Apellidos);
+                            $("#txtCorreo").val(data.Correo);
+                        }
+
+                    }
+                });
+            } else {
+                $("#txtNombre").val("");
+                $("#txtApellidos").val("");
+                $("#txtCorreo").val("");
+            }
+
+            $('#FormModal').modal('show');
+
+        }
+
+        function Guardar() {
+            var $data = {
+                oPersona: {
+                    IdPersona: parseInt($("#txtIdPersona").val()),
+                    Nombre: $("#txtNombre").val(),
+                    Apellidos: $("#txtApellidos").val(),
+                    Correo: $("#txtCorreo").val(),
+                }
+            }
+
+            jQuery.ajax({
+                url: "@Url.Action("Guardar", "Persona")",
+                type: "POST",
+                data: JSON.stringify($data),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.resultado) {
+                        tabla_persona.ajax.reload();
+                        $('#FormModal').modal('hide');
+                    } else {
+                        alert("No se pudo guardar los cambios");
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                },
+                beforeSend: function () {
+
+                }
+            });
+
+        }
+
+        function Eliminar($idpersona) {
+            if (confirm("¿Realmente desea eliminar?")) {
+
+                jQuery.ajax({
+                    url: "@Url.Action("Eliminar", "Persona")" + "?idpersona=" + $idpersona,
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        if (data.resultado) {
+                            tabla_persona.ajax.reload();
+                        }
+                    }
+                });
+
+
+            }
+        }
+
+    </script>
+
+
+
+}
+
+
